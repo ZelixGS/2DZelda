@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dd45rl0amwohe"]
+
+[ext_resource type="Texture2D" uid="uid://xsc01jopcrxv" path="res://Sprites/Dungeon.png" id="1_yi8s4"]
+[ext_resource type="PackedScene" uid="uid://ckhbhnyutu3ak" path="res://GameObjects/Components/Pushable/PushableComponents.tscn" id="3_hj08e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7q6ag"]
+size = Vector2(16, 16)
+
+[node name="Block" type="AnimatableBody2D"]
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_yi8s4")
+region_enabled = true
+region_rect = Rect2(80, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7q6ag")
+
+[node name="PushableComponent" parent="." instance=ExtResource("3_hj08e")]

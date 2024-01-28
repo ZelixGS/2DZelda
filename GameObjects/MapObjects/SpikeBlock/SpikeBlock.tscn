@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi6cnxku4p4tw"]
+
+[ext_resource type="Texture2D" uid="uid://xsc01jopcrxv" path="res://Sprites/Dungeon.png" id="1_axd6p"]
+[ext_resource type="PackedScene" uid="uid://2tgtx2d1sgh4" path="res://GameObjects/Components/Hitbox/Hitbox.tscn" id="2_8eig4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgwtl"]
+size = Vector2(15, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lw1yk"]
+size = Vector2(17, 17)
+
+[node name="SpikeBlock" type="AnimatableBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_axd6p")
+region_enabled = true
+region_rect = Rect2(64, 208, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_hgwtl")
+
+[node name="Hitbox" parent="." instance=ExtResource("2_8eig4")]
+damage = 5
+knockback = 1.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_lw1yk")
+debug_color = Color(0.988235, 0, 0.298039, 0.419608)

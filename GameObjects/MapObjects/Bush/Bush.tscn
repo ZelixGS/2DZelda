@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://dl2cvncarr0yl"]
+
+[ext_resource type="Texture2D" uid="uid://dpw1wi2fu7oem" path="res://Sprites/Overworld.png" id="1_75lj2"]
+[ext_resource type="Script" path="res://GameObjects/MapObjects/Bush/Bush.gd" id="1_msv1g"]
+[ext_resource type="PackedScene" uid="uid://bbwdgsxdhi01o" path="res://GameObjects/Components/Health/Health.tscn" id="2_lde7k"]
+[ext_resource type="PackedScene" uid="uid://501jnxpn7oyn" path="res://GameObjects/Components/Hurtbox/Hurtbox.tscn" id="3_iaw07"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_erjpc"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7nwo"]
+size = Vector2(16, 16)
+
+[node name="Bush" type="AnimatableBody2D"]
+script = ExtResource("1_msv1g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_erjpc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_75lj2")
+region_enabled = true
+region_rect = Rect2(96, 192, 16, 16)
+
+[node name="Health" parent="." instance=ExtResource("2_lde7k")]
+max_health = 1
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("3_iaw07")]
+visible = false
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_p7nwo")
+debug_color = Color(0, 1, 0, 0.498039)
+
+[connection signal="died" from="Health" to="." method="_on_health_died"]

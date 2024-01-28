@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm15lnvu6nfim"]
+
+[ext_resource type="Script" path="res://GameObjects/Components/Carryable/Carryable.gd" id="1_nxiwo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jf84k"]
+size = Vector2(14, 14)
+
+[node name="Carryable" type="Area2D"]
+collision_layer = 256
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_nxiwo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jf84k")

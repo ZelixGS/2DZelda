@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi8lfqr1fjwf8"]
+
+[ext_resource type="Script" path="res://Items/Sword/Sword.gd" id="1_qn71f"]
+[ext_resource type="Texture2D" uid="uid://lkxa1qboswwp" path="res://Items/Sword/Sword.png" id="3_qgi1d"]
+[ext_resource type="PackedScene" uid="uid://2tgtx2d1sgh4" path="res://GameObjects/Components/Hitbox/Hitbox.tscn" id="4_cpsr8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3dbo2"]
+radius = 8.0
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("3_qgi1d")
+hframes = 3
+region_rect = Rect2(0, 0, 16, 16)
+script = ExtResource("1_qn71f")
+
+[node name="Hitbox" parent="." instance=ExtResource("4_cpsr8")]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_3dbo2")
+debug_color = Color(1, 0, 0, 0.498039)
+metadata/_edit_lock_ = true

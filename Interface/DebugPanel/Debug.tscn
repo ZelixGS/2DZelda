@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv58yrkwusosd"]
+
+[ext_resource type="FontFile" uid="uid://cl2sm0imtr5ca" path="res://Font/zAwakenedBit.ttf" id="1_k7ke4"]
+[ext_resource type="Script" path="res://Interface/DebugPanel/RichTextLabel.gd" id="2_hpu2w"]
+
+[node name="Control" type="Panel"]
+custom_minimum_size = Vector2(320, 200)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -960.0
+offset_bottom = -600.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(312, 192)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("1_k7ke4")
+theme_override_font_sizes/font_size = 16
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("2_hpu2w")

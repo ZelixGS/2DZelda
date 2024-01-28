@@ -1,0 +1,121 @@
+[gd_scene load_steps=18 format=3 uid="uid://dwh0nva6knkhp"]
+
+[ext_resource type="Script" path="res://Entities/Entity.gd" id="1_6ixgw"]
+[ext_resource type="Texture2D" uid="uid://b0jprq5ekcmh" path="res://Sprites/Enemies.png" id="2_wmknm"]
+[ext_resource type="PackedScene" uid="uid://6d3648qqjecf" path="res://Entities/States/StateMachine.tscn" id="3_ctwdd"]
+[ext_resource type="Script" path="res://Entities/States/EnemyStates/Wander/Wander.gd" id="4_wye7f"]
+[ext_resource type="PackedScene" uid="uid://bbwdgsxdhi01o" path="res://GameObjects/Components/Health/Health.tscn" id="5_c1yyb"]
+[ext_resource type="PackedScene" uid="uid://2tgtx2d1sgh4" path="res://GameObjects/Components/Hitbox/Hitbox.tscn" id="6_jwgo8"]
+[ext_resource type="PackedScene" uid="uid://501jnxpn7oyn" path="res://GameObjects/Components/Hurtbox/Hurtbox.tscn" id="7_bwi3i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fkf3w"]
+radius = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xarhg"]
+atlas = ExtResource("2_wmknm")
+region = Rect2(544, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rnhj0"]
+atlas = ExtResource("2_wmknm")
+region = Rect2(544, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sg84l"]
+atlas = ExtResource("2_wmknm")
+region = Rect2(528, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhpnu"]
+atlas = ExtResource("2_wmknm")
+region = Rect2(528, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7t66"]
+atlas = ExtResource("2_wmknm")
+region = Rect2(560, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppo0f"]
+atlas = ExtResource("2_wmknm")
+region = Rect2(560, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_htsnc"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xarhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rnhj0")
+}],
+"loop": true,
+"name": &"move_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sg84l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhpnu")
+}],
+"loop": true,
+"name": &"move_side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7t66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ppo0f")
+}],
+"loop": true,
+"name": &"move_up",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_76yf4"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gxu23"]
+radius = 8.0
+
+[node name="Snake" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 1137
+motion_mode = 1
+script = ExtResource("1_6ixgw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fkf3w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_htsnc")
+animation = &"move_side"
+autoplay = "move_side"
+frame_progress = 0.961636
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("3_ctwdd")]
+initial_state = NodePath("Wander")
+
+[node name="Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_wye7f")
+enemy = NodePath("../..")
+
+[node name="Health" parent="." instance=ExtResource("5_c1yyb")]
+
+[node name="Hitbox" parent="." instance=ExtResource("6_jwgo8")]
+damage = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_76yf4")
+debug_color = Color(1, 0, 0, 0.498039)
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("7_bwi3i")]
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_gxu23")
+debug_color = Color(0, 1, 0, 0.498039)

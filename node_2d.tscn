@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca3rbkspiqwe2"]
+
+[ext_resource type="Texture2D" uid="uid://xsc01jopcrxv" path="res://Sprites/Dungeon.png" id="1_5412g"]
+
+[sub_resource type="GDScript" id="GDScript_ttulo"]
+script/source = "extends Sprite2D
+
+var step: int = 2
+
+func _physics_process(delta: float) -> void:
+	print( (get_global_mouse_position()/16).floor())
+	global_position = (get_global_mouse_position() / 16).floor() * 16 + Vector2(8,8)
+"
+
+[node name="Node2D" type="Sprite2D"]
+texture = ExtResource("1_5412g")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+script = SubResource("GDScript_ttulo")

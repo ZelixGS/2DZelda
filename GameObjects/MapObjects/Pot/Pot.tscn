@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdh246mdscfsy"]
+
+[ext_resource type="Texture2D" uid="uid://xsc01jopcrxv" path="res://Sprites/Dungeon.png" id="1_grdbv"]
+[ext_resource type="PackedScene" uid="uid://ckhbhnyutu3ak" path="res://GameObjects/Components/Pushable/PushableComponents.tscn" id="2_ncpki"]
+[ext_resource type="PackedScene" uid="uid://dm15lnvu6nfim" path="res://GameObjects/Components/Carryable/Carryable.tscn" id="3_7q5uh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_brak0"]
+size = Vector2(16, 10)
+
+[node name="Pot" type="AnimatableBody2D"]
+z_index = 1
+y_sort_enabled = true
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_grdbv")
+region_enabled = true
+region_rect = Rect2(64, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_brak0")
+
+[node name="PushableComponent" parent="." instance=ExtResource("2_ncpki")]
+visible = false
+push_direction = Vector2(0, 0)
+
+[node name="Carryable" parent="." instance=ExtResource("3_7q5uh")]

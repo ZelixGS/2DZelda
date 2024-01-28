@@ -1,0 +1,125 @@
+[gd_scene load_steps=8 format=3 uid="uid://5y1ftklvlda0"]
+
+[ext_resource type="Texture2D" uid="uid://d1fvkqaxj8ua6" path="res://GameObjects/MapObjects/Torch/Torch.png" id="1_w23lx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwcf1"]
+size = Vector2(16, 16)
+
+[sub_resource type="Gradient" id="Gradient_21fk5"]
+offsets = PackedFloat32Array(0, 0.910299)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bu6yo"]
+gradient = SubResource("Gradient_21fk5")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_nteum"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:texture_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.9]
+}
+
+[sub_resource type="Animation" id="Animation_7y250"]
+resource_name = "brazier"
+length = 0.75
+loop_mode = 1
+step = 0.1875
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1875, 0.375, 0.5625),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:texture_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.375),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.8, 1.2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sfqqv"]
+_data = {
+"RESET": SubResource("Animation_nteum"),
+"brazier": SubResource("Animation_7y250")
+}
+
+[node name="Torch" type="AnimatableBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bwcf1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_w23lx")
+hframes = 5
+vframes = 5
+frame = 6
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.278431, 0.576471, 1)
+energy = 0.9
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_bu6yo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sfqqv")
+}
+autoplay = "brazier"

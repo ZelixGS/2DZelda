@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckhbhnyutu3ak"]
+
+[ext_resource type="Script" path="res://GameObjects/Components/Pushable/Pushable.gd" id="1_nqhxw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rg1k"]
+size = Vector2(14, 14)
+
+[node name="PushableComponent" type="Area2D"]
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_nqhxw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6rg1k")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(16, 0)
+collision_mask = 1031
