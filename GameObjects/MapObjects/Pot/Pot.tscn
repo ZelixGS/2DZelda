@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdh246mdscfsy"]
+[gd_scene load_steps=6 format=3 uid="uid://cdh246mdscfsy"]
 
 [ext_resource type="Texture2D" uid="uid://xsc01jopcrxv" path="res://Sprites/Dungeon.png" id="1_grdbv"]
+[ext_resource type="Script" path="res://GameObjects/MapObjects/Pot/Pot.gd" id="1_jma1t"]
 [ext_resource type="PackedScene" uid="uid://ckhbhnyutu3ak" path="res://GameObjects/Components/Pushable/PushableComponents.tscn" id="2_ncpki"]
 [ext_resource type="PackedScene" uid="uid://dm15lnvu6nfim" path="res://GameObjects/Components/Carryable/Carryable.tscn" id="3_7q5uh"]
 
@@ -11,6 +12,7 @@ size = Vector2(16, 10)
 z_index = 1
 y_sort_enabled = true
 collision_mask = 0
+script = ExtResource("1_jma1t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_grdbv")

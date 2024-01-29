@@ -1,9 +1,19 @@
 extends Node
 
+#var preloaded: Dictionary = {
+	#"DeathFX": preload("res://GameObjects/Effects/DeathFX/DeathFX.tscn")
+#}
+#
+#func _check_preloaded(resource_name: String) -> Resource:
+	#if preloaded.has(resource_name):
+		#return preloaded[resource_name]
+	#else:
+		#
+
 func _add_to_node(target: Node, obj: Node) -> void:
 	target.call_deferred("add_child", obj)
 
-func _add_to_world(obj: Node) -> void:
+func _add_to_world(obj: Node2D) -> void:
 	Global.get_stage().call_deferred("add_child", obj)
 
 func node(res: Resource, spawn: Transform2D) -> void:
@@ -19,10 +29,13 @@ func node(res: Resource, spawn: Transform2D) -> void:
 	#add_to_world(p)
 
 func particle_to_world(res: Resource, target: Transform2D) -> void:
-	var p: PackedScene = res.instantiate()
+	if not Global.get_stage():
+		printerr("No stage for %s" % res)
+		return
+	var p: GPUParticles2D = res.instantiate()
 	p.position = target.get_origin()
 	p.rotation = target.get_rotation()
-	Global.get_stage()._add_child(p)
+	_add_to_world(p)
 
 func particle_to_node(res: Resource, target: Node2D) -> void:
 	var p: PackedScene = res.instantiate()

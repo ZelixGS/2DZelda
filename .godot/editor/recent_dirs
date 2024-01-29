@@ -1,14 +1,20 @@
+C:/Game Dev/Builds/SteamDeckTest
+res://World/Dungeons
+res://Scripts
+res://GameObjects/Components/Room
+res://World/Dungeons/LightTest
+res://GameObjects/Effects/DeathFX
+res://GameObjects/Effects
+res://Entities/Enemies/Snake
+res://Entities/Enemies
 res://Entities
 res://Sprites
 res://GameObjects/MapObjects/PressurePlate
-C:/Game Dev/Builds/SteamDeckTest
-res://GameObjects/MapObjects/Torch
 res://Interface/DebugPanel
 res://
 res://GameObjects/MapObjects/Bush
 res://Entities/Player
 res://Items/Sword
-res://Scripts
 res://GameObjects/Components/Pushable
 res://Interface
 res://Interface/MainMenu

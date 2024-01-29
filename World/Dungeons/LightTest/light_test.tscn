@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://ce1gmesgo52vk"]
+
+[ext_resource type="Texture2D" uid="uid://nvtcua4rwsp3" path="res://Sprites/Player.png" id="1_5iqre"]
+[ext_resource type="Texture2D" uid="uid://d1fvkqaxj8ua6" path="res://GameObjects/MapObjects/Brazier/Torch.png" id="2_b30jb"]
+
+[sub_resource type="Environment" id="Environment_80xwl"]
+background_mode = 3
+background_color = Color(1, 1, 1, 1)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y4agk"]
+polygon = PackedVector2Array(1, -6, 4, -4, 6, -2, 6, 2, 4, 4, 2, 6, -2, 6, -4, 4, -6, 2, -6, -2, -4, -4, -1, -6)
+
+[sub_resource type="Gradient" id="Gradient_3s7m1"]
+offsets = PackedFloat32Array(0, 0.910299)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d3ixx"]
+gradient = SubResource("Gradient_3s7m1")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="LightTest" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Node2D"]
+environment = SubResource("Environment_80xwl")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="Node2D"]
+zoom = Vector2(4, 4)
+
+[node name="Player" type="Sprite2D" parent="."]
+light_mask = 2
+position = Vector2(16, 0)
+texture = ExtResource("1_5iqre")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="ShadowCaster" type="LightOccluder2D" parent="Player"]
+occluder = SubResource("OccluderPolygon2D_y4agk")
+
+[node name="Brazier" type="Sprite2D" parent="."]
+position = Vector2(32, 0)
+texture = ExtResource("2_b30jb")
+region_enabled = true
+region_rect = Rect2(48, 48, 16, 16)
+
+[node name="Light" type="PointLight2D" parent="Brazier"]
+texture = SubResource("GradientTexture2D_d3ixx")
+
+[node name="Shadow" type="PointLight2D" parent="Brazier"]
+range_item_cull_mask = 2
+shadow_filter = 2
+shadow_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_d3ixx")

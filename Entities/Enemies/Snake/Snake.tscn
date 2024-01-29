@@ -1,12 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://dwh0nva6knkhp"]
+[gd_scene load_steps=23 format=3 uid="uid://dwh0nva6knkhp"]
 
-[ext_resource type="Script" path="res://Entities/Entity.gd" id="1_6ixgw"]
+[ext_resource type="Script" path="res://Entities/Enemies/Snake/Snake.gd" id="1_hlco2"]
+[ext_resource type="PackedScene" uid="uid://chkibtyaghcx6" path="res://GameObjects/Components/RotationHelper/RotationHelper.tscn" id="2_376xu"]
 [ext_resource type="Texture2D" uid="uid://b0jprq5ekcmh" path="res://Sprites/Enemies.png" id="2_wmknm"]
 [ext_resource type="PackedScene" uid="uid://6d3648qqjecf" path="res://Entities/States/StateMachine.tscn" id="3_ctwdd"]
-[ext_resource type="Script" path="res://Entities/States/EnemyStates/Wander/Wander.gd" id="4_wye7f"]
+[ext_resource type="Script" path="res://Entities/Enemies/Snake/AnimatedSprite2D.gd" id="3_yvkpf"]
 [ext_resource type="PackedScene" uid="uid://bbwdgsxdhi01o" path="res://GameObjects/Components/Health/Health.tscn" id="5_c1yyb"]
+[ext_resource type="Script" path="res://Entities/States/EnemyStates/Wander.gd" id="5_fcpb7"]
+[ext_resource type="Script" path="res://Entities/States/EnemyStates/Charge.gd" id="6_bkii3"]
 [ext_resource type="PackedScene" uid="uid://2tgtx2d1sgh4" path="res://GameObjects/Components/Hitbox/Hitbox.tscn" id="6_jwgo8"]
+[ext_resource type="Script" path="res://Entities/States/EnemyStates/Stunned.gd" id="7_1tern"]
 [ext_resource type="PackedScene" uid="uid://501jnxpn7oyn" path="res://GameObjects/Components/Hurtbox/Hurtbox.tscn" id="7_bwi3i"]
+[ext_resource type="PackedScene" uid="uid://c5mki37c0lx0v" path="res://GameObjects/Effects/DeathFX/DeathFX.tscn" id="10_l362j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fkf3w"]
 radius = 7.0
@@ -84,27 +89,38 @@ radius = 8.0
 
 [node name="Snake" type="CharacterBody2D"]
 collision_layer = 32
-collision_mask = 1137
+collision_mask = 1121
 motion_mode = 1
-script = ExtResource("1_6ixgw")
+script = ExtResource("1_hlco2")
+
+[node name="RotationHelper" parent="." instance=ExtResource("2_376xu")]
+
+[node name="WallCheck" type="RayCast2D" parent="RotationHelper"]
+target_position = Vector2(7, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fkf3w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_htsnc")
-animation = &"move_side"
+animation = &"move_up"
 autoplay = "move_side"
-frame_progress = 0.961636
+script = ExtResource("3_yvkpf")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("3_ctwdd")]
 initial_state = NodePath("Wander")
 
-[node name="Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
-script = ExtResource("4_wye7f")
-enemy = NodePath("../..")
+[node name="Wander" type="Node" parent="StateMachine"]
+script = ExtResource("5_fcpb7")
+
+[node name="Charge" type="Node" parent="StateMachine"]
+script = ExtResource("6_bkii3")
+
+[node name="Stunned" type="Node" parent="StateMachine"]
+script = ExtResource("7_1tern")
 
 [node name="Health" parent="." instance=ExtResource("5_c1yyb")]
+death_effect = ExtResource("10_l362j")
 
 [node name="Hitbox" parent="." instance=ExtResource("6_jwgo8")]
 damage = 2
@@ -119,3 +135,8 @@ health = NodePath("../Health")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_gxu23")
 debug_color = Color(0, 1, 0, 0.498039)
+
+[connection signal="knocked_back" from="." to="StateMachine/Charge" method="_on_snake_knocked_back"]
+[connection signal="end_stun" from="StateMachine/Stunned" to="AnimatedSprite2D" method="_on_stunned_end_stun"]
+[connection signal="start_stun" from="StateMachine/Stunned" to="AnimatedSprite2D" method="_on_stunned_start_stun"]
+[connection signal="died" from="Health" to="." method="_on_health_died"]

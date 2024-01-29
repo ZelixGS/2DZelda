@@ -9,7 +9,7 @@ signal died
 @export var damage_cooldown: float = 0.2
 @export_group("Options")
 #@export var drop_component: DropComponent
-@export var death_effect: PackedScene
+@export var death_effect: Resource
 @export_subgroup("Flash")
 @export var can_flash: bool = true
 @export var flash_damage: Color = Color.RED
@@ -66,5 +66,5 @@ func flash(flash_color: Color) -> void:
 	if flash_tween && flash_tween.is_running():
 		return
 	flash_tween = create_tween().set_trans(Tween.TRANS_LINEAR)
-	flash_tween.tween_property(owner, "modulate", flash_color, 0.25)
-	flash_tween.tween_property(owner, "modulate", Color.WHITE, 0.25)
+	flash_tween.tween_property(owner, "modulate", flash_color, damage_cooldown/2)
+	flash_tween.tween_property(owner, "modulate", Color.WHITE, damage_cooldown/2)

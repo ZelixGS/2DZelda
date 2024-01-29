@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5mki37c0lx0v"]
+
+[ext_resource type="Texture2D" uid="uid://cm5g24yjrd2tj" path="res://Sprites/DeathFX.png" id="1_x4boc"]
+[ext_resource type="Script" path="res://GameObjects/Effects/ParticleFX.gd" id="2_s0tve"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nok0c"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_asru6"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="DeathFX" type="GPUParticles2D"]
+z_index = 10
+material = SubResource("CanvasItemMaterial_nok0c")
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_asru6")
+texture = ExtResource("1_x4boc")
+lifetime = 0.5
+one_shot = true
+script = ExtResource("2_s0tve")

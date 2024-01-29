@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://lnrp182u80ji"]
+
+[ext_resource type="Script" path="res://GameObjects/Components/Room/Room.gd" id="1_rhcyr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xsaeh"]
+size = Vector2(272, 176)
+
+[node name="Room" type="Area2D"]
+y_sort_enabled = true
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+script = ExtResource("1_rhcyr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xsaeh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

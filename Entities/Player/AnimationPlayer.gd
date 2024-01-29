@@ -49,7 +49,7 @@ func update_state() -> void:
 			advance_play("push")
 
 func advance_play(anim_name: String, wait: bool = false, speed: float = 1.0, reversed: bool = false) -> void:
-	var mod_name: String = "%s_%s" % [anim_name, player.get_direction()]
+	var mod_name: String = "%s_%s" % [anim_name, player.facing]
 	if current_animation == mod_name:
 		return
 	stop(true)

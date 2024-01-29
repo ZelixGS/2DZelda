@@ -1,10 +1,11 @@
-[gd_scene load_steps=57 format=3 uid="uid://n1karm7rwyoi"]
+[gd_scene load_steps=59 format=3 uid="uid://n1karm7rwyoi"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_f1ny7"]
 [ext_resource type="Script" path="res://Entities/Player/PushCheck.gd" id="2_28edg"]
 [ext_resource type="Script" path="res://Entities/Player/StateMachine.gd" id="2_fdxyi"]
 [ext_resource type="Texture2D" uid="uid://b8bxyrmrwu3md" path="res://Sprites/PlayerV2.png" id="2_ifncj"]
 [ext_resource type="PackedScene" uid="uid://bi8lfqr1fjwf8" path="res://Items/Sword/Sword.tscn" id="3_dhndr"]
+[ext_resource type="PackedScene" uid="uid://chkibtyaghcx6" path="res://GameObjects/Components/RotationHelper/RotationHelper.tscn" id="4_vnmea"]
 [ext_resource type="PackedScene" uid="uid://bbwdgsxdhi01o" path="res://GameObjects/Components/Health/Health.tscn" id="5_kjja3"]
 [ext_resource type="PackedScene" uid="uid://501jnxpn7oyn" path="res://GameObjects/Components/Hurtbox/Hurtbox.tscn" id="6_f33k7"]
 [ext_resource type="Script" path="res://Entities/Player/AnimationPlayer.gd" id="8_8m07a"]
@@ -768,8 +769,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_himor"]
 resource_name = "swing_down"
-length = 0.33
-step = 0.055
+length = 0.25
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -777,7 +778,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.11, 0.22),
+"times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [112, 113, 114]
@@ -789,7 +790,7 @@ tracks/1/path = NodePath("Sword:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -801,7 +802,7 @@ tracks/2/path = NodePath("Sword/Hitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -813,7 +814,7 @@ tracks/3/path = NodePath("Sword:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2(12, 2), Vector2(11, 9), Vector2(-3, 13), Vector2(-11, 9), Vector2(-14, 3)]
@@ -825,7 +826,7 @@ tracks/4/path = NodePath("Sword:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [1.5708, 1.5708, 3.14159, 3.14159, 4.71239]
@@ -837,7 +838,7 @@ tracks/5/path = NodePath("Sword:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 0, 1, 0]
@@ -849,7 +850,7 @@ tracks/6/path = NodePath("Sword")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.11, 0.22),
+"times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [&"start_swing"],
@@ -869,7 +870,7 @@ tracks/7/path = NodePath("Sword:is_swinging")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -877,8 +878,8 @@ tracks/7/keys = {
 
 [sub_resource type="Animation" id="Animation_lqmu2"]
 resource_name = "swing_left"
-length = 0.33
-step = 0.055
+length = 0.25
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -886,7 +887,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.11, 0.22),
+"times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [121, 122, 123]
@@ -898,7 +899,7 @@ tracks/1/path = NodePath("Sword:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -910,7 +911,7 @@ tracks/2/path = NodePath("Sword/Hitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -922,7 +923,7 @@ tracks/3/path = NodePath("Sword:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2(-4, -9), Vector2(-11, -9), Vector2(-12, 4), Vector2(-11, 9), Vector2(-3, 14)]
@@ -934,7 +935,7 @@ tracks/4/path = NodePath("Sword:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0.0, 4.71239, 4.71239, 3.14159, 3.14159]
@@ -946,7 +947,7 @@ tracks/5/path = NodePath("Sword:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 0, 1, 0]
@@ -958,7 +959,7 @@ tracks/6/path = NodePath("Sword")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.11, 0.22),
+"times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [&"start_swing"],
@@ -978,7 +979,7 @@ tracks/7/path = NodePath("Sword:is_swinging")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -986,8 +987,8 @@ tracks/7/keys = {
 
 [sub_resource type="Animation" id="Animation_7ghxf"]
 resource_name = "swing_right"
-length = 0.33
-step = 0.055
+length = 0.25
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -995,7 +996,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.11, 0.22),
+"times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [118, 119, 120]
@@ -1007,7 +1008,7 @@ tracks/1/path = NodePath("Sword:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -1019,7 +1020,7 @@ tracks/2/path = NodePath("Sword/Hitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -1031,7 +1032,7 @@ tracks/3/path = NodePath("Sword:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2(4, -9), Vector2(11, -9), Vector2(11, 4), Vector2(11, 9), Vector2(0, 13)]
@@ -1043,7 +1044,7 @@ tracks/4/path = NodePath("Sword:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0.0, 0.0, 1.5708, 1.5708, 3.14159]
@@ -1055,7 +1056,7 @@ tracks/5/path = NodePath("Sword:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 0, 1, 0]
@@ -1067,7 +1068,7 @@ tracks/6/path = NodePath("Sword")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.11, 0.22),
+"times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [&"start_swing"],
@@ -1087,7 +1088,7 @@ tracks/7/path = NodePath("Sword:is_swinging")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -1095,8 +1096,8 @@ tracks/7/keys = {
 
 [sub_resource type="Animation" id="Animation_v6nij"]
 resource_name = "swing_up"
-length = 0.33
-step = 0.055
+length = 0.25
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1104,7 +1105,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.11, 0.22),
+"times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [115, 116, 117]
@@ -1116,7 +1117,7 @@ tracks/1/path = NodePath("Sword:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -1128,7 +1129,7 @@ tracks/2/path = NodePath("Sword/Hitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -1140,7 +1141,7 @@ tracks/3/path = NodePath("Sword:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2(-12, 2), Vector2(-11, -9), Vector2(3, -13), Vector2(11, -9), Vector2(14, 0)]
@@ -1152,7 +1153,7 @@ tracks/4/path = NodePath("Sword:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [4.71239, 4.71239, 0.0, 0.0, 1.5708]
@@ -1164,7 +1165,7 @@ tracks/5/path = NodePath("Sword:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.055, 0.11, 0.165, 0.22),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 0, 1, 0]
@@ -1176,7 +1177,7 @@ tracks/6/path = NodePath("Sword")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.11, 0.22),
+"times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [&"start_swing"],
@@ -1196,7 +1197,7 @@ tracks/7/path = NodePath("Sword:is_swinging")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.33),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -1251,6 +1252,10 @@ _data = {
 "swing_up": SubResource("Animation_v6nij")
 }
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vcig6"]
+cull_mode = 2
+polygon = PackedVector2Array(2, -6, 4, -4, 4, 4, 3, 6, -3, 6, -4, 4, -4, -4, -2, -6)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
 y_sort_enabled = true
@@ -1274,15 +1279,12 @@ texture = ExtResource("2_ifncj")
 hframes = 16
 vframes = 16
 
-[node name="RotationHelper" type="Node2D" parent="."]
-visible = false
+[node name="RotationHelper" parent="." instance=ExtResource("4_vnmea")]
 
 [node name="WallCheck" type="RayCast2D" parent="RotationHelper"]
-visible = false
 target_position = Vector2(12, 0)
 
 [node name="PushCheck" type="RayCast2D" parent="RotationHelper"]
-visible = false
 target_position = Vector2(8.5, 0)
 collision_mask = 512
 collide_with_areas = true
@@ -1301,13 +1303,13 @@ collide_with_bodies = false
 position = Vector2(16, 0)
 
 [node name="CarryPosition" type="RemoteTransform2D" parent="."]
+visible = false
 position = Vector2(0, -13)
 
 [node name="Health" parent="." instance=ExtResource("5_kjja3")]
 max_health = 999
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("6_f33k7")]
-visible = false
 health = NodePath("../Health")
 faction = "player"
 
@@ -1334,6 +1336,11 @@ visible = false
 
 [node name="CollisionShape2D" parent="Sword/Hitbox" index="0"]
 disabled = true
+
+[node name="ShadowCaster" type="LightOccluder2D" parent="."]
+z_index = -1
+occluder = SubResource("OccluderPolygon2D_vcig6")
+occluder_light_mask = 2
 
 [connection signal="timeout" from="RotationHelper/PushCheck/Pushing" to="RotationHelper/PushCheck" method="_on_pushing_timeout"]
 [connection signal="damaged" from="Health" to="." method="_on_health_damaged"]

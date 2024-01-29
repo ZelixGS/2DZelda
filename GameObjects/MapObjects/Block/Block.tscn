@@ -18,3 +18,5 @@ region_rect = Rect2(80, 0, 16, 16)
 shape = SubResource("RectangleShape2D_7q6ag")
 
 [node name="PushableComponent" parent="." instance=ExtResource("3_hj08e")]
+push_limit = 1
+push_direction = Vector2(0, 0)

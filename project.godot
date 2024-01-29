@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Global="*res://Scripts/Global.gd"
 Create="*res://Scripts/Create.gd"
+Events="*res://Scripts/Events.gd"
 
 [debug]
 
@@ -32,6 +33,7 @@ gdscript/warnings/unsafe_call_argument=2
 window/size/viewport_width=1280
 window/size/viewport_height=800
 window/size/always_on_top=true
+window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 
 [input]
@@ -97,6 +99,7 @@ block={
 
 [layer_names]
 
+2d_render/layer_1="Enviroment"
 2d_physics/layer_1="Enviroment"
 2d_physics/layer_2="Liquid"
 2d_physics/layer_3="Void"
@@ -117,3 +120,5 @@ textures/canvas_textures/default_texture_filter=0
 textures/default_filters/use_nearest_mipmap_filter=true
 textures/decals/filter=0
 textures/light_projectors/filter=0
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true

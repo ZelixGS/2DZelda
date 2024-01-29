@@ -1,6 +1,9 @@
-class_name Player extends CharacterBody2D
+class_name Player extends Entity
 
-@export var speed: float = 60.0
+@export var speed_max: float = 60.0
+@export var acceleration: float = 6.0
+@export var deceleration: float = 20.0
+
 @export var backpedal_speed_reduction: float = -15.0
 @export var blocking_speed_reduction: float = -15.0
 
@@ -13,11 +16,9 @@ class_name Player extends CharacterBody2D
 @onready var tile_in_front: Marker2D = $RotationHelper/TileInFront
 @onready var sword: Sword = $Sword
 
+var current_speed: float = 0.0
 var direction: Vector2 = Vector2.ZERO
-var facing: String = "down"
 var held_object: Carryable
-var knockback_force: Vector2 = Vector2.ZERO
-var external_force: Vector2 = Vector2.ZERO
 
 var has_shield: bool = true
 
@@ -25,24 +26,28 @@ func _ready() -> void:
 	pass
 
 func _physics_process(_delta: float) -> void:
-	get_input()
-	velocity = direction.normalized() * get_speed() + knockback_force + external_force
-	rotation_helper.rotation = snapped(Global.facing_to_vector(get_direction()).angle(), PI/4)
-	#move_and_collide(velocity * _delta)
-	move_and_slide()
-	knockback_force = knockback_force.move_toward(Vector2.ZERO, 6)
-	external_force = external_force.move_toward(Vector2.ZERO, 6)
+	velocity = get_input().normalized() * get_speed()
+	check_facing()
+	standard_movement()
 
-func get_input() -> void:
+func get_input() -> Vector2:
 	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down").snapped(Vector2(1,1))
 	if is_locked_controls():
 		direction = Vector2.ZERO
+	return direction
 
-func get_direction() -> String:
-	if Input.is_action_pressed("strafe") or is_knocked_backed():
+func check_facing() -> void:
+	if is_backpedalling():
+		return
+	if direction.dot(Global.facing_to_vector(facing)) < 0:
+		current_speed = current_speed / 3
+
+func update_facing() -> String:
+	if abs(Global.facing_to_vector(facing).angle_to(velocity)) < PI * 0.3:
 		return facing
-
-	if abs(Global.facing_to_vector(facing).angle_to(direction)) < PI * 0.3:
+	if is_knocked_backed():
+		return facing
+	if Input.is_action_pressed("strafe"):
 		return facing
 	facing = Global.vector_to_facing(velocity)
 	return facing
@@ -50,16 +55,20 @@ func get_direction() -> String:
 func get_speed() -> float:
 	var backpedal_mod: float = backpedal_speed_reduction if is_backpedalling() else 0.0
 	var blocking_mod: float = blocking_speed_reduction if is_blocking() else 0.0
-	return speed + backpedal_mod + blocking_mod
+	if direction.abs() > Vector2.ZERO:
+		current_speed = move_toward(current_speed, speed_max, acceleration)
+	else:
+		current_speed = move_toward(current_speed, 0, deceleration)
+	return clamp(current_speed + backpedal_mod + blocking_mod, 10.0, 100.0)
+
+# Expects Array of [x, y, w, l]
+func clamp_to_room(size: Array[float]) -> void:
+	var room_min: Vector2 = Vector2(size[0], size[1])+Vector2(8,8)
+	var room_max: Vector2 = Vector2(size[2], size[3])-Vector2(8,8)
+	global_position = global_position.clamp(room_min, room_max)
 
 func is_carrying() -> bool:
 	return not carry_position.remote_path.is_empty()
-
-func is_backpedalling() -> bool:
-	return direction.dot(Global.facing_to_vector(get_direction())) < 0
-
-func is_knocked_backed() -> bool:
-	return knockback_force.abs() > Vector2.ZERO
 
 func is_blocking() -> bool:
 	return has_shield and Input.is_action_pressed("block")
@@ -87,13 +96,5 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("B"):
 		if sword.is_swinging:
 			return
-		apply_external_force(Global.facing_to_vector(get_direction()) * 16)
+		apply_external_force(Global.facing_to_vector(facing) * 16)
 		animation_player.advance_play("swing", true)
-
-func apply_external_force(force: Vector2) -> void:
-	direction = Vector2.ZERO
-	external_force = force
-
-func apply_knockback(force: float, knockback_pos: Vector2) -> void:
-	direction = Vector2.ZERO
-	knockback_force = knockback_pos.direction_to(global_position) * (120 * force)

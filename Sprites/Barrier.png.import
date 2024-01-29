@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1fvkqaxj8ua6"
-path="res://.godot/imported/Torch.png-4459d1555523316f38fac0f0dcfc1e8a.ctex"
+uid="uid://dhnk2ibigt5ta"
+path="res://.godot/imported/Barrier.png-9cc7cc9f4d1063d000a461bf91e3c82f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GameObjects/MapObjects/Torch/Torch.png"
-dest_files=["res://.godot/imported/Torch.png-4459d1555523316f38fac0f0dcfc1e8a.ctex"]
+source_file="res://Sprites/Barrier.png"
+dest_files=["res://.godot/imported/Barrier.png-9cc7cc9f4d1063d000a461bf91e3c82f.ctex"]
 
 [params]
 
