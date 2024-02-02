@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckhbhnyutu3ak"]
 
-[ext_resource type="Script" path="res://GameObjects/Components/Pushable/Pushable.gd" id="1_nqhxw"]
+[ext_resource type="Script" path="res://GameObjects/Components/Pushable/Pushable.gd" id="1_csruw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rg1k"]
 size = Vector2(14, 14)
 
-[node name="PushableComponent" type="Area2D"]
+[node name="Pushable" type="Area2D"]
 collision_layer = 512
 collision_mask = 0
 monitoring = false
-script = ExtResource("1_nqhxw")
+script = ExtResource("1_csruw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6rg1k")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dl2cvncarr0yl"]
+[gd_scene load_steps=8 format=3 uid="uid://dl2cvncarr0yl"]
 
-[ext_resource type="Texture2D" uid="uid://dpw1wi2fu7oem" path="res://Sprites/Overworld.png" id="1_75lj2"]
 [ext_resource type="Script" path="res://GameObjects/MapObjects/Bush/Bush.gd" id="1_msv1g"]
+[ext_resource type="Texture2D" uid="uid://dswul4dttbkpb" path="res://Sprites/Grass.png" id="2_4jpmv"]
 [ext_resource type="PackedScene" uid="uid://bbwdgsxdhi01o" path="res://GameObjects/Components/Health/Health.tscn" id="2_lde7k"]
 [ext_resource type="PackedScene" uid="uid://501jnxpn7oyn" path="res://GameObjects/Components/Hurtbox/Hurtbox.tscn" id="3_iaw07"]
+[ext_resource type="PackedScene" uid="uid://c0iwukrxpxx2t" path="res://GameObjects/Effects/GrassFX/CutGrassFX.tscn" id="4_fibee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_erjpc"]
 size = Vector2(16, 16)
@@ -19,12 +20,14 @@ visible = false
 shape = SubResource("RectangleShape2D_erjpc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_75lj2")
-region_enabled = true
-region_rect = Rect2(96, 192, 16, 16)
+texture = ExtResource("2_4jpmv")
+hframes = 4
+region_rect = Rect2(0, 176, 16, 16)
+region_filter_clip_enabled = true
 
 [node name="Health" parent="." instance=ExtResource("2_lde7k")]
 max_health = 1
+death_effect = ExtResource("4_fibee")
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("3_iaw07")]
 visible = false

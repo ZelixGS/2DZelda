@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://d27i1h66phw85"]
+
+[ext_resource type="Script" path="res://GameObjects/MapObjects/Barrier/Barrier.gd" id="1_83cw3"]
+[ext_resource type="Texture2D" uid="uid://dhnk2ibigt5ta" path="res://Sprites/Barrier.png" id="1_wqu4s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nyqjs"]
+size = Vector2(16, 16)
+
+[node name="Barrier" type="StaticBody2D"]
+collision_layer = 1024
+collision_mask = 0
+script = ExtResource("1_83cw3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wqu4s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nyqjs")

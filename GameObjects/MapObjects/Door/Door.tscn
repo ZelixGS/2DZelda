@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cit56vhhb6h1t" path="res://GameObjects/MapObjects/Door/Door.png" id="2_qqead"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nw346"]
-size = Vector2(16, 16)
+size = Vector2(16, 8)
 
 [sub_resource type="Animation" id="Animation_r7jow"]
 length = 0.001
@@ -140,8 +140,10 @@ texture = ExtResource("2_qqead")
 hframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+position = Vector2(0, 4)
+rotation = 3.14159
 shape = SubResource("RectangleShape2D_nw346")
+one_way_collision = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

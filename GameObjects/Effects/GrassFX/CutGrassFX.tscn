@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0iwukrxpxx2t"]
+
+[ext_resource type="Texture2D" uid="uid://dejq34y6toqdr" path="res://Sprites/Leaf.png" id="1_llyil"]
+[ext_resource type="Script" path="res://GameObjects/Effects/ParticleFX.gd" id="2_cp43r"]
+
+[sub_resource type="Curve" id="Curve_8ovkm"]
+_data = [Vector2(0.252525, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8exyx"]
+curve = SubResource("Curve_8ovkm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pbci2"]
+lifetime_randomness = 0.45
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 2.0
+angle_max = 270.0
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 45.0
+initial_velocity_max = 45.0
+radial_velocity_min = 45.0
+radial_velocity_max = 45.0
+gravity = Vector3(0, 196, 0)
+alpha_curve = SubResource("CurveTexture_8exyx")
+turbulence_enabled = true
+
+[node name="CutGrassFX" type="GPUParticles2D"]
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_pbci2")
+texture = ExtResource("1_llyil")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("2_cp43r")

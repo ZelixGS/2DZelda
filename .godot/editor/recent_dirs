@@ -1,12 +1,15 @@
 C:/Game Dev/Builds/SteamDeckTest
+res://GameObjects/MapObjects/Barrier
+res://GameObjects/Effects/GrassFX
+res://GameObjects/Effects
+res://Entities/Enemies
+res://GameObjects/MapObjects
 res://World/Dungeons
 res://Scripts
 res://GameObjects/Components/Room
 res://World/Dungeons/LightTest
 res://GameObjects/Effects/DeathFX
-res://GameObjects/Effects
 res://Entities/Enemies/Snake
-res://Entities/Enemies
 res://Entities
 res://Sprites
 res://GameObjects/MapObjects/PressurePlate
@@ -17,4 +20,3 @@ res://Entities/Player
 res://Items/Sword
 res://GameObjects/Components/Pushable
 res://Interface
-res://Interface/MainMenu

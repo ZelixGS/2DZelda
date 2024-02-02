@@ -1,23 +1,22 @@
-extends AnimatableBody2D
+class_name Bush extends GameObject
 
-var unburned_uncut_region: Rect2 = Rect2(0, 176, 16, 16)
-var unburned_cut_region: Rect2 = Rect2(80, 208, 16, 16)
-var burned_uncut_region: Rect2 = Rect2(80, 192, 16, 16)
-var burned_cut_region: Rect2 = Rect2(96, 192, 16, 16)
+var grass: int = 0
+var cut: int = 1
+var burned: int = 2
+var burned_cut: int = 3
 
 @onready var health: Health = $Health
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var hurtbox: Hurtbox = $Hurtbox
 
-func _ready() -> void:
-	reset()
-	
 func _on_health_died() -> void:
-	collision_shape_2d.set_deferred("disabled", true)
-	sprite_2d.region_rect = unburned_cut_region
+	sprite_2d.frame = cut
+	disable_collision()
+	hurtbox.disable()
 
-func reset() -> void:
-	sprite_2d.region_rect = unburned_uncut_region
-	collision_shape_2d.set_deferred("disabled", false)
+func additional_reset() -> void:
+	sprite_2d.frame = grass
+	enable_collision()
+	hurtbox.enable()
 	health.current_health = 1

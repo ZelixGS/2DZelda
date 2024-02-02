@@ -13,6 +13,7 @@ monitorable = false
 script = ExtResource("1_rhcyr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_xsaeh")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -14,6 +14,8 @@ signal disabled
 var starting_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	if health:
+		health.connect("died", _on_death)
 	starting_position = global_position
 
 func enable() -> void:
@@ -47,3 +49,6 @@ func reset() -> void:
 		hitbox.enable()
 	if hurtbox:
 		hurtbox.enable()
+
+func _on_death() -> void:
+	disable()

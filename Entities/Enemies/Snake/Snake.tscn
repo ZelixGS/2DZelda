@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://dwh0nva6knkhp"]
 
-[ext_resource type="Script" path="res://Entities/Enemies/Snake/Snake.gd" id="1_hlco2"]
+[ext_resource type="Script" path="res://Entities/Enemies/Enemy.gd" id="1_snwaj"]
 [ext_resource type="PackedScene" uid="uid://chkibtyaghcx6" path="res://GameObjects/Components/RotationHelper/RotationHelper.tscn" id="2_376xu"]
 [ext_resource type="Texture2D" uid="uid://b0jprq5ekcmh" path="res://Sprites/Enemies.png" id="2_wmknm"]
 [ext_resource type="PackedScene" uid="uid://6d3648qqjecf" path="res://Entities/States/StateMachine.tscn" id="3_ctwdd"]
@@ -82,7 +82,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_76yf4"]
-radius = 8.0
+radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gxu23"]
 radius = 8.0
@@ -91,19 +91,20 @@ radius = 8.0
 collision_layer = 32
 collision_mask = 1121
 motion_mode = 1
-script = ExtResource("1_hlco2")
+script = ExtResource("1_snwaj")
 
 [node name="RotationHelper" parent="." instance=ExtResource("2_376xu")]
 
 [node name="WallCheck" type="RayCast2D" parent="RotationHelper"]
-target_position = Vector2(7, 0)
+target_position = Vector2(8, 0)
+collision_mask = 1025
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fkf3w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_htsnc")
-animation = &"move_up"
+animation = &"move_side"
 autoplay = "move_side"
 script = ExtResource("3_yvkpf")
 
@@ -130,6 +131,7 @@ shape = SubResource("CircleShape2D_76yf4")
 debug_color = Color(1, 0, 0, 0.498039)
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("7_bwi3i")]
+visible = false
 health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -139,4 +141,3 @@ debug_color = Color(0, 1, 0, 0.498039)
 [connection signal="knocked_back" from="." to="StateMachine/Charge" method="_on_snake_knocked_back"]
 [connection signal="end_stun" from="StateMachine/Stunned" to="AnimatedSprite2D" method="_on_stunned_end_stun"]
 [connection signal="start_stun" from="StateMachine/Stunned" to="AnimatedSprite2D" method="_on_stunned_start_stun"]
-[connection signal="died" from="Health" to="." method="_on_health_died"]

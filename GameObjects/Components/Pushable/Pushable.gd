@@ -1,10 +1,10 @@
 class_name Pushable extends Area2D
 
+@onready var parent: GameObject = owner
+@onready var ray_cast_2d: RayCast2D = $RayCast2D
+
 @export var push_limit: int = -1
 @export var push_direction: Vector2 = Vector2.RIGHT
-
-@onready var ray_cast_2d: RayCast2D = $RayCast2D
-@onready var parent: Node2D = owner
 
 var push_count: int = 0
 var at_limit_color: Color = Color.DIM_GRAY
@@ -12,9 +12,6 @@ var start_position: Vector2
 
 var move_tween: Tween
 var dim_tween: Tween
-
-func _ready() -> void:
-	start_position = global_position
 
 func check_collision(direction: Vector2) -> bool:
 	ray_cast_2d.enabled = true
@@ -52,7 +49,5 @@ func dim_block() -> void:
 	dim_tween = create_tween().set_trans(Tween.TRANS_LINEAR)
 	dim_tween.tween_property(parent, "modulate", at_limit_color, 0.25)
 
-func reset() -> void:  
-	modulate = Color.WHITE
+func additional_reset() -> void:
 	push_count = 0
-	parent.global_position = start_position

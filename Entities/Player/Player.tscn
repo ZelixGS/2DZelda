@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://n1karm7rwyoi"]
+[gd_scene load_steps=61 format=3 uid="uid://n1karm7rwyoi"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_f1ny7"]
 [ext_resource type="Script" path="res://Entities/Player/PushCheck.gd" id="2_28edg"]
@@ -8,10 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://chkibtyaghcx6" path="res://GameObjects/Components/RotationHelper/RotationHelper.tscn" id="4_vnmea"]
 [ext_resource type="PackedScene" uid="uid://bbwdgsxdhi01o" path="res://GameObjects/Components/Health/Health.tscn" id="5_kjja3"]
 [ext_resource type="PackedScene" uid="uid://501jnxpn7oyn" path="res://GameObjects/Components/Hurtbox/Hurtbox.tscn" id="6_f33k7"]
+[ext_resource type="Script" path="res://Entities/Player/Blocking.gd" id="6_tuutr"]
 [ext_resource type="Script" path="res://Entities/Player/AnimationPlayer.gd" id="8_8m07a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fmoq2"]
 radius = 7.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pcmgx"]
+size = Vector2(3.5, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wxyps"]
 radius = 7.0
@@ -1302,6 +1306,16 @@ collide_with_bodies = false
 [node name="TileInFront" type="Marker2D" parent="RotationHelper"]
 position = Vector2(16, 0)
 
+[node name="Block" type="StaticBody2D" parent="RotationHelper"]
+collision_layer = 1248
+collision_mask = 225
+collision_priority = 6.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RotationHelper/Block"]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_pcmgx")
+script = ExtResource("6_tuutr")
+
 [node name="CarryPosition" type="RemoteTransform2D" parent="."]
 visible = false
 position = Vector2(0, -13)
@@ -1310,6 +1324,7 @@ position = Vector2(0, -13)
 max_health = 999
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("6_f33k7")]
+visible = false
 health = NodePath("../Health")
 faction = "player"
 
@@ -1331,13 +1346,11 @@ position = Vector2(12, 2)
 rotation = 1.5708
 faction = "player"
 
-[node name="Hitbox" parent="Sword" index="0"]
-visible = false
-
 [node name="CollisionShape2D" parent="Sword/Hitbox" index="0"]
 disabled = true
 
 [node name="ShadowCaster" type="LightOccluder2D" parent="."]
+visible = false
 z_index = -1
 occluder = SubResource("OccluderPolygon2D_vcig6")
 occluder_light_mask = 2

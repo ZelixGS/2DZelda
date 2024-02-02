@@ -1,13 +1,11 @@
 class_name Carryable extends Area2D
 
+@onready var parent: GameObject = owner
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 @export var weight: int = 1
 
 var speed: float = 0.33
-
-@onready var parent: AnimatableBody2D = owner
-@onready var start_position: Vector2 = parent.global_position
-@onready var start_collision: int = parent.collision_layer
-
 var pickup_tween: Tween
 var putdown_tween: Tween
 
@@ -15,9 +13,11 @@ func pickup(remote: RemoteTransform2D) -> void:
 	if pickup_tween and pickup_tween.is_running():
 		return
 	
-	parent.collision_layer = 0
-	collision_layer = 0
+	parent.disable_collision()
 	parent.z_index += 2
+	
+	collision_shape_2d.set_deferred("disabled", true)
+	
 	pickup_tween = create_tween().set_trans(Tween.TRANS_LINEAR)
 	pickup_tween.tween_property(parent, "global_position", remote.global_position, speed)
 	await pickup_tween.finished
@@ -33,11 +33,8 @@ func putdown(to_pos: Vector2) -> void:
 	await putdown_tween.finished
 	
 	parent.z_index -= 2
-	parent.collision_layer = start_collision
-	collision_layer = 256
+	parent.enable_collision()
+	collision_shape_2d.set_deferred("disabled", false)
 
 func throw() -> void:
 	pass
-	
-func reset() -> void:  
-	parent.global_position = start_position

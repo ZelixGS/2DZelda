@@ -2,7 +2,7 @@ class_name Entity extends CharacterBody2D
 
 signal knocked_back
 
-@export var knockback_vuln: float = 10.0
+@export var knockback_vuln: float = 120.0
 
 var facing: String = "down"
 
